@@ -1,14 +1,24 @@
-.venv/
-.idea/
-.vscode/
-__pycache__/
-*.pyc
-build/
-dist/
-*.egg-info/
+# Local maintainer documentation
+/maintainer-notes/
+
+# Credentials and local configuration
 .env
 .env.*
 !.env.example
+
+# Development environments and editors
+.venv/
+.idea/
+.vscode/
+
+# Generated Python and packaging files
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Logs and operating-system files
 *.log
 .DS_Store
 Thumbs.db

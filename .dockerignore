@@ -1,6 +1,8 @@
 .git
 .venv
 .idea
+.vscode
+maintainer-notes
 build
 dist
 tests
