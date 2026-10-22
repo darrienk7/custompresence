@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "custompresence"
+version = "0.1.0"
+description = "A desktop editor for Discord Rich Presence"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+maintainers = [{email = "chasekw2007@gmail.com"}]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.34,<1",
+    "pypresence>=4.6.2,<5",
+    "pywebview>=6,<7",
+    "platformdirs>=4,<5",
+    "httpx>=0.28,<1",
+    "Pillow>=11.3,<13",
+    "python-dotenv>=1.1,<2",
+]
+
+[project.urls]
+Repository = "https://github.com/darrienk7/custompresence"
+Issues = "https://github.com/darrienk7/custompresence/issues"
+Releases = "https://github.com/darrienk7/custompresence/releases"
+
+[project.optional-dependencies]
+dev = ["pyinstaller>=6.16,<7"]
+
+[project.gui-scripts]
+custom-presence = "custompresence.desktop:main"
+
+[project.scripts]
+custom-presence-server = "custompresence.api:main"
+
+[tool.setuptools.packages.find]
+include = ["custompresence*"]
+
+[tool.setuptools.package-data]
+custompresence = ["assets/*.html", "assets/*.css", "assets/*.js", "assets/legal/*.html", "assets/icons/*"]

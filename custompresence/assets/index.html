@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="presence-token" content="__SESSION_TOKEN__">
+<title>Custom Presence</title><link rel="stylesheet" href="/assets/app.css">
+<script src="/assets/app.js" defer></script>
+</head>
+<body><main>
+<header><div class="eyebrow">Your activity, your way</div><h1>Custom Presence</h1><p>A little personality for your Discord profile.</p></header>
+<div class="layout">
+<form id="form" autocomplete="off">
+<label>Activity type<select name="activity_type"><option value="playing">Playing</option><option value="listening">Listening</option><option value="watching">Watching</option><option value="competing">Competing</option></select></label>
+<label>Activity<input name="name" maxlength="128" placeholder="What are you up to?"><small>The name after Playing, Listening to, or Watching.</small></label>
+<div class="image-field">
+<label>Image / GIF<select name="image_mode" data-image-mode="image"><option value="upload">Upload</option><option value="link">Paste public link</option></select></label>
+<div data-upload-panel="image"><button type="button" data-upload="image" class="secondary">Choose image / GIF</button><input type="file" data-file="image" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" hidden><small data-upload-hint>Upload directly in this app. Files become public on ImgBB, which requires users to be 18 or older.</small><small data-upload-receipt="image" hidden></small></div>
+<div data-link-panel="image" hidden><label>Public image link<input name="image" maxlength="2048" placeholder="Paste an image, Giphy, Tenor, or single-image Imgur link" autocomplete="off"></label><button type="button" class="text-button" data-check="image">Check link</button><small data-image-feedback="image">Giphy, Tenor, and single-image Imgur page links are converted automatically.</small></div>
+</div>
+<dialog id="advanced-dialog" aria-labelledby="advanced-title" aria-describedby="advanced-description">
+<div class="dialog-heading"><div><button type="button" id="advanced-back" class="text-button" hidden>← All options</button><h2 id="advanced-title" tabindex="-1">Advanced options</h2><p id="advanced-description" class="hint">Choose what you’d like to customize.</p></div><button type="button" id="close-advanced" class="icon-button" aria-label="Close advanced options">×</button></div>
+<div class="dialog-body">
+<div id="advanced-menu" class="option-grid">
+<button type="button" class="option-card" data-open-panel="text" aria-controls="advanced-text" data-description="Add descriptions and choose the text shown on your profile."><span class="option-icon" aria-hidden="true">Aa</span><span class="option-title">Activity text</span><span class="option-description">Details, state, and text links</span></button>
+<button type="button" class="option-card" data-open-panel="artwork" aria-controls="advanced-artwork" data-description="Add hover text, image links, and a small image."><span class="option-icon" aria-hidden="true">◇</span><span class="option-title">Artwork</span><span class="option-description">Hover text and a second image</span></button>
+<button type="button" class="option-card" data-open-panel="timer" aria-controls="advanced-timer" data-description="Show elapsed time or count down to an end time."><span class="option-icon" aria-hidden="true">◷</span><span class="option-title">Timer</span><span class="option-description">Elapsed time or a countdown</span></button>
+<button type="button" class="option-card" data-open-panel="party" aria-controls="advanced-party" data-description="Show how many people are in your party."><span class="option-icon" aria-hidden="true">◎</span><span class="option-title">Party</span><span class="option-description">Party identifier and group size</span></button>
+<button type="button" class="option-card" data-open-panel="buttons" aria-controls="advanced-buttons" data-description="Add up to two buttons that open public links."><span class="option-icon" aria-hidden="true">↗</span><span class="option-title">Activity buttons</span><span class="option-description">Two links on your activity card</span></button>
+<button type="button" class="option-card" data-open-panel="game" aria-controls="advanced-game" data-description="Connect an existing game integration to your activity."><span class="option-icon" aria-hidden="true">⌘</span><span class="option-title">Game integration</span><span class="option-description">Join, spectate, and match tokens</span></button>
+<button type="button" class="option-card" data-open-panel="settings" aria-controls="advanced-settings" data-description="Manage the preferences and upload history stored on this computer."><span class="option-icon" aria-hidden="true">⚙</span><span class="option-title">Saved data</span><span class="option-description">Preferences and upload history</span></button>
+</div>
+<fieldset id="advanced-text" data-advanced-panel="text" hidden><legend class="visually-hidden">Activity text</legend>
+<label>Details<input name="details" minlength="2" maxlength="128" placeholder="What you’re doing"></label>
+<label>State<input name="state" minlength="2" maxlength="128" placeholder="In a match, in a group, taking a break…"></label>
+<label>Show in the status line<select name="status_display_type"><option value="name">Activity name</option><option value="details">Details</option><option value="state">State</option></select></label>
+<label>Details link<input name="details_url" maxlength="512" placeholder="https://example.com"></label>
+<label>State link<input name="state_url" maxlength="512" placeholder="https://example.com"></label>
+</fieldset>
+<fieldset id="advanced-artwork" data-advanced-panel="artwork" hidden><legend class="visually-hidden">Artwork</legend>
+<label>Main image hover text<input name="large_text" maxlength="128" placeholder="Text shown on hover"></label>
+<label>Main image link<input name="large_url" maxlength="512" placeholder="https://example.com"></label>
+<label>Small image / GIF<select name="small_image_mode" data-image-mode="small_image"><option value="link">Paste public link</option><option value="upload">Upload</option></select></label>
+<div data-upload-panel="small_image" hidden><button type="button" data-upload="small_image" class="secondary">Choose image / GIF</button><input type="file" data-file="small_image" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" hidden><small data-upload-hint>Public upload to ImgBB.</small><small data-upload-receipt="small_image" hidden></small></div>
+<div data-link-panel="small_image"><label>Small image link<input name="small_image" maxlength="2048" placeholder="https://example.com/icon.png"></label><button type="button" class="text-button" data-check="small_image">Check link</button><small data-image-feedback="small_image"></small></div>
+<label>Small image hover text<input name="small_text" maxlength="128"></label>
+<label>Small image click-through link<input name="small_url" maxlength="512" placeholder="https://example.com"></label>
+</fieldset>
+<fieldset id="advanced-timer" data-advanced-panel="timer" hidden><legend class="visually-hidden">Timer</legend><p class="hint">A start time shows elapsed time. An end time shows a countdown. Leave both empty for no timer.</p>
+<label>Start time<input id="start-time" type="datetime-local" step="1"></label>
+<label>End time<input id="end-time" type="datetime-local" step="1"></label>
+<div class="inline-actions"><button type="button" id="start-now" class="secondary">Start now</button><button type="button" id="clear-timer" class="text-button">Remove timer</button></div>
+</fieldset>
+<fieldset id="advanced-party" data-advanced-panel="party" hidden><legend class="visually-hidden">Party</legend>
+<p class="hint">Apply activity after changing the sizes, then check the full activity card on your Discord profile. If State is blank, “In a party” is used. For Listening, Watching, and Competing, the count is included in the State text.</p>
+<label>Party ID<input name="party_id" maxlength="128" placeholder="Leave blank for an automatic ID"><small>Only set this yourself when connecting an existing game integration.</small></label>
+<div class="pair"><label>Current size<input name="party_current" type="number" min="1" max="2147483647" step="1"></label><label>Maximum size<input name="party_max" type="number" min="1" max="2147483647" step="1"></label></div>
+</fieldset>
+<fieldset id="advanced-buttons" data-advanced-panel="buttons" hidden><legend class="visually-hidden">Activity buttons</legend><p class="hint">Up to two buttons. Leave a button’s label and link empty to omit it. Discord may hide buttons when you view your own profile.</p>
+<label>Button 1 label<input name="button_1_label" maxlength="32"></label><label>Button 1 link<input name="button_1_url" maxlength="512" placeholder="https://example.com"></label>
+<label>Button 2 label<input name="button_2_label" maxlength="32"></label><label>Button 2 link<input name="button_2_url" maxlength="512" placeholder="https://example.com"></label>
+</fieldset>
+<fieldset id="advanced-game" data-advanced-panel="game" hidden><legend class="visually-hidden">Game integration</legend><p class="hint">These tokens are for apps that already handle joining or spectating. Entering a token here does not create a game lobby or implement invite handling. Tokens are sent to Discord and are not saved after quitting.</p>
+<label>Join token<input name="join" type="password" minlength="2" maxlength="128" autocomplete="off"></label>
+<label>Spectate token<input name="spectate" type="password" minlength="2" maxlength="128" autocomplete="off"></label>
+<label>Match token<input name="match" type="password" minlength="2" maxlength="128" autocomplete="off"></label>
+<label class="check"><input name="instance" type="checkbox" checked> Instanced game session</label>
+<label>Supported platforms<select disabled><option>Managed by Discord / game integration</option></select><small>Platform-specific join flags require Discord’s Social SDK. They cannot be set through this desktop RPC connection.</small></label>
+</fieldset>
+<fieldset id="advanced-settings" data-advanced-panel="settings" hidden><legend class="visually-hidden">Saved data</legend>
+<div class="data-option"><h3>Activity preferences</h3><p class="hint">Remove saved preferences and return the editor to its defaults.</p><button type="button" id="reset-settings" class="secondary">Reset saved settings</button></div>
+<div class="data-option"><h3>Remembered uploads</h3><p class="hint">Forget local upload history, including removal links. Keep any links you need first. Hosted files stay online.</p><button type="button" id="forget-uploads" class="secondary">Forget remembered uploads</button></div>
+</fieldset>
+</div>
+<div class="dialog-footer"><div id="advanced-upload-status" data-upload-status hidden><p data-upload-message role="status"></p><button type="button" data-cancel-upload class="text-button">Cancel upload</button></div><p id="advanced-feedback" role="status" aria-live="polite"></p><div class="actions"><button id="advanced-apply" type="submit">Apply activity</button><button type="button" id="back-basic" class="secondary">Done</button></div><small>Changes stay when switching sections. Apply activity to update Discord.</small></div>
+</dialog>
+<div class="actions"><button id="apply-activity" type="submit">Apply activity</button><button class="secondary" type="button" id="stop">Clear</button></div>
+<button type="button" id="advanced" class="text-button advanced-button" aria-haspopup="dialog" aria-expanded="false" aria-controls="advanced-dialog">Advanced options</button>
+<div id="upload-status" data-upload-status hidden><p data-upload-message role="status"></p><button type="button" data-cancel-upload class="text-button">Cancel upload</button></div>
+<p id="feedback" role="status" aria-live="polite"></p>
+</form>
+<aside class="preview"><div class="eyebrow">Activity preview</div>
+<div class="card"><div class="art-wrap"><div id="placeholder" class="art">✦</div><img id="art" class="art" alt="Activity artwork" hidden><img id="small-art" alt="Small activity image" hidden></div><div class="preview-copy"><strong id="title">Playing</strong><p id="details"></p><p id="state"></p><p id="timer"></p></div></div><div id="preview-buttons"></div>
+<small class="preview-note">Approximate preview. Keep this app and Discord desktop running, and enable activity sharing in Discord.</small>
+</aside>
+</div>
+<footer>Independent of Discord and ImgBB. Host policies and content enforcement apply.<nav><a href="/terms" target="_blank" rel="noreferrer">Terms of Service</a><a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a></nav></footer>
+</main></body></html>

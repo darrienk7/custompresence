@@ -1,0 +1,73 @@
+name: Build desktop downloads
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+            platform: Windows
+            asset: CustomPresence-Windows-Setup.exe
+          - os: macos-15
+            platform: macOS-AppleSilicon
+            asset: CustomPresence-macOS-AppleSilicon.dmg
+          - os: macos-15-intel
+            platform: macOS-Intel
+            asset: CustomPresence-macOS-Intel.dmg
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name || github.ref }}
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install build dependencies
+        run: python -m pip install ".[dev]"
+      - name: Check app
+        run: python -m unittest discover -s tests -v
+      - name: Configure public upload service
+        env:
+          CUSTOMPRESENCE_UPLOAD_URL: ${{ vars.CUSTOMPRESENCE_UPLOAD_URL }}
+        run: python scripts/configure_upload_endpoint.py
+      - name: Build app and installer
+        run: python scripts/package_release.py
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.platform }}
+          path: dist/${{ matrix.asset }}
+          if-no-files-found: error
+
+  publish:
+    name: Attach downloads to release
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: downloads
+          merge-multiple: true
+      - name: Upload installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$RELEASE_TAG" downloads/* --clobber
