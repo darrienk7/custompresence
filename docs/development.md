@@ -26,10 +26,10 @@ Alternatively run `python app.py`. For browser development run `custom-presence-
 
 ## Publish from the GitHub website
 
-1. Create a GitHub repository and upload this project's source, including `.github/workflows/release.yml`. Exclude `.venv`, `build`, `dist`, and the other files listed in `.gitignore`.
+1. Push the intended source changes to [darrienk7/custompresence](https://github.com/darrienk7/custompresence). Keep `.venv`, `build`, `dist`, and the other files listed in `.gitignore` excluded. Configure the shared upload service and its `CUSTOMPRESENCE_UPLOAD_URL` Actions variable as described in the [publishing checklist](publishing.md).
 2. On GitHub, choose **Releases → Draft a new release**. Create a version tag such as `v0.1.0`, then click **Publish release**.
 3. The **Build desktop downloads** workflow tests and builds Windows, Apple Silicon Mac, and Intel Mac packages, then attaches all three downloads to that release after every build succeeds.
-4. Link users to that repository's **Releases** page. Once the repository exists, README download buttons can point directly at `/releases/latest/download/CustomPresence-Windows-Setup.exe` and the corresponding Mac filenames.
+4. Link users to the repository's [Releases](https://github.com/darrienk7/custompresence/releases) page. After a release has working downloads, README download buttons can point directly at `/releases/latest/download/CustomPresence-Windows-Setup.exe` and the corresponding Mac filenames.
 
 No terminal is needed for publishing from GitHub. **Actions → Build desktop downloads → Run workflow** also builds test downloads without publishing a release. Workflow files must exist in the released source. Actions must be enabled for the repository.
 

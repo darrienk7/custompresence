@@ -14,7 +14,7 @@ Get the installer from [Releases](https://github.com/darrienk7/custompresence/re
 
 On Windows, open the installer, then open **Custom Presence** from Start. The installer handles WebView2 if it is missing. On a Mac, open the DMG, drag **CustomPresence** into **Applications**, and open it.
 
-Downloads will become available after the repository's first successful release build. Builds are currently unsigned; Windows and macOS may show a security warning. Mac release builds and installation still need verification on a Mac.
+Installers have not been released yet. The shared upload service must be configured before the first release build; see the [publishing checklist](docs/publishing.md). Builds are currently unsigned; Windows and macOS may show a security warning. Mac release builds and installation still need verification on a Mac.
 
 ## Make it yours
 
@@ -41,7 +41,7 @@ Before uploading the repository or publishing downloads, follow the [publishing 
 
 Uploads use [ImgBB's API](https://api.imgbb.com/), with no website or browser popup. The owner configures the integration once; users never enter an API key. See [upload setup](docs/imgbb.md) for local owner testing and the shared upload service for released builds. If an upload service is not configured, public links still work. Its free service is subject to host limits and availability; this project cannot promise unlimited or permanently free hosting. Uploaded images are public. Hosting does not guarantee content approval, moderation of every GIF frame, or bans within this app. ImgBB's current [Terms](https://imgbb.com/tos) require users to be 18 or older. Users can instead paste an image link from a service they are eligible to use.
 
-Custom Presence is independent of Discord and ImgBB. Users are responsible for the content they share and must follow each service's rules. The [Terms of Service](custompresence/assets/legal/terms.html) and [Privacy Policy](custompresence/assets/legal/privacy.html) are also linked inside the app. [Publish these pages for the Discord application](docs/policies.md) once the GitHub repository exists.
+Custom Presence is independent of Discord and ImgBB. Users are responsible for the content they share and must follow each service's rules. The public [Terms of Service](https://darrienk7.github.io/custompresence/terms.html) and [Privacy Policy](https://darrienk7.github.io/custompresence/privacy.html) are also included inside the app. See [policy setup](docs/policies.md) to add these URLs to the Discord application.
 
 Discord controls the final display, including animation and button visibility. Streaming and custom status are not supported by this RPC connection. The Social SDK's `supportedPlatforms` flags are unavailable here. Invite tokens require a working integration that handles joining or spectating; filling a token field does not create that integration.
 
